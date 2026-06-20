@@ -173,6 +173,14 @@ h1{
     overflow:hidden;
     box-shadow:8px 8px 0 #111;
     position:relative;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover,
+.card:focus{
+    transform:translate(2px, 2px);
+    box-shadow:6px 6px 0 #111;
+    outline:none;
 }
 .card::before{
     content:"";
@@ -256,6 +264,82 @@ h1{
     transform:translate(1px, 1px);
     box-shadow:2px 2px 0 #111;
 }
+.detail-screen{
+    display:none;
+}
+.detail-screen.active{
+    display:block;
+}
+.products.hidden{
+    display:none;
+}
+.back-button{
+    border:2px solid #111;
+    border-radius:6px;
+    background:white;
+    color:#111;
+    cursor:pointer;
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:22px;
+    padding:10px 14px;
+    box-shadow:3px 3px 0 #111;
+}
+.back-button:hover{
+    transform:translate(1px, 1px);
+    box-shadow:2px 2px 0 #111;
+}
+.detail-card{
+    background:white;
+    border:3px solid #111;
+    border-radius:8px;
+    box-shadow:8px 8px 0 #111;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:24px;
+    padding:22px;
+}
+.gallery-main{
+    aspect-ratio:1 / 1;
+    border:3px solid #111;
+    border-radius:6px;
+}
+.gallery-thumbs{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px;
+    margin-top:12px;
+}
+.gallery-thumb{
+    aspect-ratio:1 / 1;
+    border:2px solid #111;
+    border-radius:6px;
+    cursor:pointer;
+}
+.gallery-thumb.active{
+    box-shadow:0 0 0 4px #ff5da2;
+}
+.detail-info{
+    align-self:center;
+}
+.detail-type{
+    color:#717987;
+    font-size:.9rem;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+}
+.detail-name{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:3.2rem;
+    line-height:.95;
+    margin-top:8px;
+}
+.detail-price{
+    font-size:1.5rem;
+    font-weight:600;
+    margin-top:16px;
+}
 footer{
     color:#717987;
     font-size:.9rem;
@@ -303,6 +387,14 @@ footer{
     .products{
         grid-template-columns:1fr;
     }
+    .detail-card{
+        grid-template-columns:1fr;
+        gap:18px;
+        padding:14px;
+    }
+    .detail-name{
+        font-size:2.5rem;
+    }
 }
 </style>
 </head>
@@ -317,8 +409,8 @@ footer{
             </div>
         </header>
 
-        <section class="products" aria-label="Featured products">
-            <article class="card">
+        <section class="products" id="products" aria-label="Featured products">
+            <article class="card" data-product="street-deck" role="link" tabindex="0">
                 <div class="image-box image-blue" aria-label="Blue placeholder product image"></div>
                 <div class="card-content">
                     <p class="product-type">Skateboard</p>
@@ -328,7 +420,7 @@ footer{
                 </div>
             </article>
 
-            <article class="card">
+            <article class="card" data-product="sticker-pack" role="link" tabindex="0">
                 <div class="image-box image-green" aria-label="Green placeholder product image"></div>
                 <div class="card-content">
                     <p class="product-type">Bike</p>
@@ -338,7 +430,7 @@ footer{
                 </div>
             </article>
 
-            <article class="card">
+            <article class="card" data-product="grip-tape" role="link" tabindex="0">
                 <div class="image-box image-red" aria-label="Red placeholder product image"></div>
                 <div class="card-content">
                     <p class="product-type">Accessories</p>
@@ -348,7 +440,7 @@ footer{
                 </div>
             </article>
 
-            <article class="card">
+            <article class="card" data-product="mini-cruiser" role="link" tabindex="0">
                 <div class="image-box image-yellow" aria-label="Yellow placeholder product image"></div>
                 <div class="card-content">
                     <p class="product-type">Skateboard</p>
@@ -359,7 +451,119 @@ footer{
             </article>
         </section>
 
+        <section class="detail-screen" id="product-detail" aria-label="Product details">
+            <button class="back-button" type="button" id="back-to-products">Back to products</button>
+            <article class="detail-card">
+                <div>
+                    <div class="gallery-main" id="gallery-main"></div>
+                    <div class="gallery-thumbs" id="gallery-thumbs"></div>
+                </div>
+                <div class="detail-info">
+                    <p class="detail-type" id="detail-type"></p>
+                    <h2 class="detail-name" id="detail-name"></h2>
+                    <p class="detail-price" id="detail-price"></p>
+                    <a class="buy-button" id="detail-buy" href="https://www.ebay.com">Buy Now on eBay</a>
+                </div>
+            </article>
+        </section>
+
         <footer>Made by HDM</footer>
     </main>
+    <script>
+    const products = {
+        "street-deck": {
+            type: "Skateboard",
+            name: "Street Deck Custom",
+            price: "£49.00",
+            ebay: "https://www.ebay.com",
+            images: ["#6fb6ff", "#69d2e7", "#ffd15c", "#ff5da2"]
+        },
+        "sticker-pack": {
+            type: "Bike",
+            name: "Frame Sticker Pack",
+            price: "£12.00",
+            ebay: "https://www.ebay.com",
+            images: ["#59d98e", "#ffd15c", "#6fb6ff", "#ff7676"]
+        },
+        "grip-tape": {
+            type: "Accessories",
+            name: "Grip Tape Design",
+            price: "£9.00",
+            ebay: "https://www.ebay.com",
+            images: ["#ff7676", "#ff5da2", "#111111", "#69d2e7"]
+        },
+        "mini-cruiser": {
+            type: "Skateboard",
+            name: "Mini Cruiser Deck",
+            price: "£39.00",
+            ebay: "https://www.ebay.com",
+            images: ["#ffd15c", "#59d98e", "#ff7676", "#6fb6ff"]
+        }
+    };
+
+    const productGrid = document.querySelector("#products");
+    const detailScreen = document.querySelector("#product-detail");
+    const galleryMain = document.querySelector("#gallery-main");
+    const galleryThumbs = document.querySelector("#gallery-thumbs");
+    const detailType = document.querySelector("#detail-type");
+    const detailName = document.querySelector("#detail-name");
+    const detailPrice = document.querySelector("#detail-price");
+    const detailBuy = document.querySelector("#detail-buy");
+    const backButton = document.querySelector("#back-to-products");
+
+    function setActiveImage(color, activeThumb) {
+        galleryMain.style.background = color;
+        document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
+            thumb.classList.remove("active");
+        });
+        activeThumb.classList.add("active");
+    }
+
+    function showProduct(productId) {
+        const product = products[productId];
+        detailType.textContent = product.type;
+        detailName.textContent = product.name;
+        detailPrice.textContent = product.price;
+        detailBuy.href = product.ebay;
+        galleryThumbs.innerHTML = "";
+
+        product.images.forEach((color, index) => {
+            const thumb = document.createElement("button");
+            thumb.className = "gallery-thumb";
+            thumb.type = "button";
+            thumb.style.background = color;
+            thumb.setAttribute("aria-label", `${product.name} image ${index + 1}`);
+            thumb.addEventListener("click", () => setActiveImage(color, thumb));
+            galleryThumbs.appendChild(thumb);
+            if (index === 0) {
+                setActiveImage(color, thumb);
+            }
+        });
+
+        productGrid.classList.add("hidden");
+        detailScreen.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.querySelectorAll(".card").forEach((card) => {
+        card.addEventListener("click", (event) => {
+            if (event.target.closest(".buy-button")) {
+                return;
+            }
+            showProduct(card.dataset.product);
+        });
+        card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                showProduct(card.dataset.product);
+            }
+        });
+    });
+
+    backButton.addEventListener("click", () => {
+        detailScreen.classList.remove("active");
+        productGrid.classList.remove("hidden");
+    });
+    </script>
 </body>
 </html>
