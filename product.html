@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trickbit 🛹</title>
+<title>Trickbit Product</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -53,7 +53,8 @@ header::before{
 header::after{
     display:none;
 }
-.paint-splatters{
+.paint-splatters,
+.paint-splatters-extra{
     position:absolute;
     inset:0;
     z-index:-1;
@@ -101,12 +102,6 @@ header::after{
         -86px 110px 0 -10px #ff5da2,
         -158px 98px 0 -8px #69d2e7;
 }
-.paint-splatters-extra{
-    position:absolute;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-}
 .paint-splatters-extra::before{
     width:8px;
     height:8px;
@@ -149,14 +144,11 @@ h1{
     color:#111;
 }
 .subtitle{
-    color:#111;
     font-size:1.75rem;
     font-family:'Bebas Neue', sans-serif;
     line-height:1.1;
-    margin-top:16px;
-    max-width:820px;
-    margin-left:auto;
-    margin-right:auto;
+    margin-top:8px;
+    color:#111;
 }
 .ebay-logo-word{
     font-family:Arial, Helvetica, sans-serif;
@@ -177,109 +169,88 @@ h1{
 .ebay-green{
     color:#86b817;
 }
-.products{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:24px;
+.back-link{
+    border:2px solid #111;
+    border-radius:6px;
+    background:white;
+    box-shadow:3px 3px 0 #111;
+    color:#111;
+    display:inline-block;
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:22px;
+    padding:10px 14px;
+    text-decoration:none;
 }
-.card{
+.back-link:hover{
+    transform:translate(1px, 1px);
+    box-shadow:2px 2px 0 #111;
+}
+.detail-card{
     background:white;
     border:3px solid #111;
     border-radius:8px;
-    overflow:hidden;
     box-shadow:8px 8px 0 #111;
-    position:relative;
-    cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:24px;
+    padding:22px;
 }
-.card-link{
-    color:inherit;
-    display:block;
-    text-decoration:none;
-}
-.card:hover,
-.card:focus{
-    transform:translate(2px, 2px);
-    box-shadow:6px 6px 0 #111;
-    outline:none;
-}
-.card::before{
-    content:"";
-    position:absolute;
-    inset:10px auto auto 10px;
-    width:54px;
-    height:16px;
-    border-radius:999px;
-    background:#fff;
-    opacity:.55;
-    transform:rotate(-12deg);
-    z-index:1;
-}
-.card:nth-child(1){
-    background:#fff7d6;
-}
-.card:nth-child(2){
-    background:#eaf8ea;
-}
-.card:nth-child(3){
-    background:#fff0f0;
-}
-.card:nth-child(4){
-    background:#fff6dc;
-}
-.image-box{
+.gallery-main{
     aspect-ratio:1 / 1;
-    border-bottom:3px solid #111;
+    border:3px solid #111;
+    border-radius:6px;
 }
-.image-blue{
-    background:#6fb6ff;
+.gallery-thumbs{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px;
+    margin-top:12px;
 }
-.image-green{
-    background:#59d98e;
+.gallery-thumb{
+    aspect-ratio:1 / 1;
+    border:2px solid #111;
+    border-radius:6px;
+    cursor:pointer;
 }
-.image-red{
-    background:#ff7676;
+.gallery-thumb.active{
+    box-shadow:0 0 0 4px #ff5da2;
 }
-.image-yellow{
-    background:#ffd15c;
+.detail-info{
+    align-self:center;
 }
-.card-content{
-    padding:16px;
-    text-align:center;
-}
-.product-type{
+.detail-type{
     color:#717987;
-    font-size:.85rem;
+    font-size:.9rem;
     font-weight:600;
     letter-spacing:.04em;
     text-transform:uppercase;
 }
-.product-name{
-    font-size:1.1rem;
-    line-height:1.25;
-    margin-top:6px;
+.detail-name{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:3.2rem;
+    line-height:.95;
+    margin-top:8px;
 }
-.price{
-    font-size:1.15rem;
+.detail-price{
+    font-size:1.5rem;
     font-weight:600;
-    margin-top:12px;
+    margin-top:16px;
 }
 .buy-button{
-    display:block;
-    margin-top:15px;
-    width:100%;
-    padding:12px;
+    background:#ff5da2;
     border:2px solid #111;
     border-radius:6px;
-    cursor:pointer;
-    background:#ff5da2;
+    box-shadow:3px 3px 0 #111;
     color:#111;
+    display:block;
     font-size:1rem;
     font-weight:600;
-    font-family:'Inter', sans-serif;
+    margin-top:15px;
+    padding:12px;
     text-align:center;
     text-decoration:none;
-    box-shadow:3px 3px 0 #111;
+    width:100%;
 }
 .buy-button:hover{
     transform:translate(1px, 1px);
@@ -291,17 +262,11 @@ footer{
     margin-top:32px;
     text-align:center;
 }
-@media (max-width:900px){
-    .products{
-        gap:18px;
-    }
-}
 @media (max-width:560px){
     body{
         padding:24px 14px;
     }
     header{
-        text-align:center;
         padding:32px 6px 20px;
     }
     header::before{
@@ -327,8 +292,13 @@ footer{
     h1{
         font-size:3.4rem;
     }
-    .products{
+    .detail-card{
         grid-template-columns:1fr;
+        gap:18px;
+        padding:14px;
+    }
+    .detail-name{
+        font-size:2.5rem;
     }
 }
 </style>
@@ -340,69 +310,92 @@ footer{
             <span class="paint-splatters-extra" aria-hidden="true"></span>
             <div>
                 <h1>Trickbit</h1>
-                <p class="subtitle">We sell custom made skateboards, wheels and more. If you see something you like, please click buy now and you will be taken to <span class="ebay-logo-word"><span class="ebay-red">e</span><span class="ebay-blue">B</span><span class="ebay-yellow">a</span><span class="ebay-green">y</span></span> to checkout. Enjoy!</p>
+                <p class="subtitle">We sell custom made skateboards, wheels and more. If you see something you like, please click buy now and you will be taken to <span class="ebay-logo-word"><span class="ebay-red">e</span><span class="ebay-blue">b</span><span class="ebay-yellow">a</span><span class="ebay-green">y</span></span> to checkout. Enjoy!</p>
             </div>
         </header>
 
-        <section class="products" id="products" aria-label="Featured products">
-            <article class="card">
-                <a class="card-link" href="product.html?product=street-deck">
-                    <div class="image-box image-blue" aria-label="Blue placeholder product image"></div>
-                    <div class="card-content">
-                        <p class="product-type">Skateboard</p>
-                        <h2 class="product-name">Street Deck Custom</h2>
-                        <p class="price">£49.00</p>
-                    </div>
-                </a>
-                <div class="card-content">
-                    <a class="buy-button" href="https://www.ebay.com">Buy Now</a>
-                </div>
-            </article>
+        <a class="back-link" href="index.html">Back to products</a>
 
-            <article class="card">
-                <a class="card-link" href="product.html?product=sticker-pack">
-                    <div class="image-box image-green" aria-label="Green placeholder product image"></div>
-                    <div class="card-content">
-                        <p class="product-type">Bike</p>
-                        <h2 class="product-name">Frame Sticker Pack</h2>
-                        <p class="price">£12.00</p>
-                    </div>
-                </a>
-                <div class="card-content">
-                    <a class="buy-button" href="https://www.ebay.com">Buy Now</a>
-                </div>
-            </article>
-
-            <article class="card">
-                <a class="card-link" href="product.html?product=grip-tape">
-                    <div class="image-box image-red" aria-label="Red placeholder product image"></div>
-                    <div class="card-content">
-                        <p class="product-type">Accessories</p>
-                        <h2 class="product-name">Grip Tape Design</h2>
-                        <p class="price">£9.00</p>
-                    </div>
-                </a>
-                <div class="card-content">
-                    <a class="buy-button" href="https://www.ebay.com">Buy Now</a>
-                </div>
-            </article>
-
-            <article class="card">
-                <a class="card-link" href="product.html?product=mini-cruiser">
-                    <div class="image-box image-yellow" aria-label="Yellow placeholder product image"></div>
-                    <div class="card-content">
-                        <p class="product-type">Skateboard</p>
-                        <h2 class="product-name">Mini Cruiser Deck</h2>
-                        <p class="price">£39.00</p>
-                    </div>
-                </a>
-                <div class="card-content">
-                    <a class="buy-button" href="https://www.ebay.com">Buy Now</a>
-                </div>
-            </article>
-        </section>
+        <article class="detail-card">
+            <div>
+                <div class="gallery-main" id="gallery-main"></div>
+                <div class="gallery-thumbs" id="gallery-thumbs"></div>
+            </div>
+            <div class="detail-info">
+                <p class="detail-type" id="detail-type"></p>
+                <h2 class="detail-name" id="detail-name"></h2>
+                <p class="detail-price" id="detail-price"></p>
+                <a class="buy-button" id="detail-buy" href="https://www.ebay.com">Buy Now on eBay</a>
+            </div>
+        </article>
 
         <footer>Made by HDM</footer>
     </main>
+
+    <script>
+    const products = {
+        "street-deck": {
+            type: "Skateboard",
+            name: "Street Deck Custom",
+            price: "£49.00",
+            ebay: "https://www.ebay.com",
+            images: ["#6fb6ff", "#69d2e7", "#ffd15c", "#ff5da2"]
+        },
+        "sticker-pack": {
+            type: "Bike",
+            name: "Frame Sticker Pack",
+            price: "£12.00",
+            ebay: "https://www.ebay.com",
+            images: ["#59d98e", "#ffd15c", "#6fb6ff", "#ff7676"]
+        },
+        "grip-tape": {
+            type: "Accessories",
+            name: "Grip Tape Design",
+            price: "£9.00",
+            ebay: "https://www.ebay.com",
+            images: ["#ff7676", "#ff5da2", "#111111", "#69d2e7"]
+        },
+        "mini-cruiser": {
+            type: "Skateboard",
+            name: "Mini Cruiser Deck",
+            price: "£39.00",
+            ebay: "https://www.ebay.com",
+            images: ["#ffd15c", "#59d98e", "#ff7676", "#6fb6ff"]
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("product") || "street-deck";
+    const product = products[productId] || products["street-deck"];
+    const galleryMain = document.querySelector("#gallery-main");
+    const galleryThumbs = document.querySelector("#gallery-thumbs");
+
+    document.title = `${product.name} | Trickbit`;
+    document.querySelector("#detail-type").textContent = product.type;
+    document.querySelector("#detail-name").textContent = product.name;
+    document.querySelector("#detail-price").textContent = product.price;
+    document.querySelector("#detail-buy").href = product.ebay;
+
+    function setActiveImage(color, activeThumb) {
+        galleryMain.style.background = color;
+        document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
+            thumb.classList.remove("active");
+        });
+        activeThumb.classList.add("active");
+    }
+
+    product.images.forEach((color, index) => {
+        const thumb = document.createElement("button");
+        thumb.className = "gallery-thumb";
+        thumb.type = "button";
+        thumb.style.background = color;
+        thumb.setAttribute("aria-label", `${product.name} image ${index + 1}`);
+        thumb.addEventListener("click", () => setActiveImage(color, thumb));
+        galleryThumbs.appendChild(thumb);
+        if (index === 0) {
+            setActiveImage(color, thumb);
+        }
+    });
+    </script>
 </body>
 </html>
